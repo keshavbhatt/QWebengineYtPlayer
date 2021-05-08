@@ -4,7 +4,6 @@
 #include <QWebEngineSettings>
 #include <QWebEngineFullScreenRequest>
 #include <QVBoxLayout>
-#include "mainwindow.h"
 
 WebEnginePlayer::WebEnginePlayer(QWidget *parent)
     : QWidget(parent)
@@ -20,12 +19,6 @@ WebEnginePlayer::WebEnginePlayer(QWidget *parent)
             &QWebEnginePage::fullScreenRequested,
             this,
             &WebEnginePlayer::fullScreenRequested);
-
-    QObject *mainWindowObject = utils::getMainWindow(this);
-    MainWindow *mainWindow = dynamic_cast<MainWindow *>(mainWindowObject);
-
-    connect(m_view,&QWebEngineView::loadStarted,mainWindow,&MainWindow::startSpinner);
-    connect(m_view,&QWebEngineView::loadFinished,mainWindow,&MainWindow::stopSpinner);
 
     this->reset();
 }
